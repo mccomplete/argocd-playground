@@ -362,7 +362,7 @@ spec:
               fieldPath: metadata.namespace
         - name: MAESTRO_SERVER_HOST
           value: http://host.docker.internal:8080
-        image: index.docker.io/granulate/maestro:1.27.8
+        image: index.docker.io/granulate/maestro:1.27.12
         name: granulate-maestro
         ports:
         - containerPort: 8443
