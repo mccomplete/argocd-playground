@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-apache-2
+  labels:
+    run: php-apache-2
+    app: php-apache-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: php-apache-2
+  template:
+    metadata:
+      labels:
+        run: php-apache-2
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: run
+                      operator: In
+                      values:
+                        - php-apache-2
+                topologyKey: kubernetes.io/hostname
+      containers:
+        - name: busybox
+          image: busybox
+          command: ["/bin/sh", "-c", "tail -f /dev/null"]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
